@@ -2,12 +2,10 @@
 
 >基于@gang544043963大神的[LGPhotoBrowser](https://github.com/gang544043963/LGPhotoBrowser)项目再次封装的
 
-->![1](https://github.com/youngwifemoliy/MLDPhotoManager/blob/master/IMG/WechatIMG117.jpeg
-)<-
-->![1](https://github.com/youngwifemoliy/MLDPhotoManager/blob/master/IMG/WechatIMG118.jpeg
-)<-
-->![1](https://github.com/youngwifemoliy/MLDPhotoManager/blob/master/IMG/WechatIMG119.jpeg
-)<-
+![1](https://github.com/youngwifemoliy/MLDPhotoManager/blob/master/IMG/WechatIMG125.jpeg
+)![1](https://github.com/youngwifemoliy/MLDPhotoManager/blob/master/IMG/WechatIMG123.jpeg
+)![1](https://github.com/youngwifemoliy/MLDPhotoManager/blob/master/IMG/WechatIMG124.jpeg
+)
 
 #### 项目初衷
 本身[LGPhotoBrowser](https://github.com/gang544043963/LGPhotoBrowser)已经很是完美了,完成了很多我们的需求,但是在我的项目中会多次出现AlertController让用户选择相机还是相册这种需求实例.在这个基础上想到了再次封装.
