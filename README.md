@@ -2,9 +2,9 @@
 
 >基于@gang544043963大神的[LGPhotoBrowser](https://github.com/gang544043963/LGPhotoBrowser)项目再次封装的
 
-![1](https://github.com/youngwifemoliy/MLDPhotoManager/blob/master/IMG/WechatIMG125.jpeg
-)![1](https://github.com/youngwifemoliy/MLDPhotoManager/blob/master/IMG/WechatIMG123.jpeg
-)![1](https://github.com/youngwifemoliy/MLDPhotoManager/blob/master/IMG/WechatIMG124.jpeg
+![1](https://github.com/youngwifemoliy/MLDPhotoManager/blob/master/IMG/WechatIMG125.png
+)![1](https://github.com/youngwifemoliy/MLDPhotoManager/blob/master/IMG/WechatIMG123.png
+)![1](https://github.com/youngwifemoliy/MLDPhotoManager/blob/master/IMG/WechatIMG124.png
 )
 
 #### 项目初衷
