@@ -35,6 +35,7 @@
 ```
 其中`(UIView *)carryView`这个参数要说明一下.
 方法是直接呼出了`UIAlertController`但是在 *iPad* 中`UIAlertController`不能自下而上的直接弹出,需要一个停靠的`View`所以需要告诉控制器是哪个`View`响应了这个`UIAlertController`.
+
 eg:你是按了一个 *Button* 想呼出`UIAlertController`那么这个 *Button* 就是 *carryView*
 
 #### 注意
