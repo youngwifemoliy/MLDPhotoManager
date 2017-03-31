@@ -13,7 +13,7 @@
 #### 用法
 只需要将`MLDPhotoManager`拖入项目中即可
 
-```
+```obj-c
 [MLDPhotoManager showPhotoManager:sender
                   withCameraImage:^(UIImage *cameraImage)
  {
@@ -28,7 +28,7 @@
 
 #### 说明
 
-```
+```obj-c
 + (void)showPhotoManager:(UIView *)carryView
          withCameraImage:(void(^)(UIImage *cameraImage))cameraImage
           withAlbumArray:(void(^)(NSArray *albumArray))albumArray;
@@ -42,5 +42,13 @@ eg:你是按了一个 *Button* 想呼出`UIAlertController`那么这个 *Button*
 [LGPhotoBrowser](https://github.com/gang544043963/LGPhotoBrowser)项目已经集成了[DACircularProgress](https://github.com/danielamitay/DACircularProgress) [SDWebImage](https://github.com/rs/SDWebImage)如果项目中有这两个库的童鞋可以删除.
 位置 *LGPhotoBrowser-->Classes-->Third*
 
+本项目应用于iOS 9+
+
 #### 再次鸣谢
 再次鸣谢@gang544043963大神的[LGPhotoBrowser](https://github.com/gang544043963/LGPhotoBrowser)项目,从这个项目中学习到了很多东西.👍👍👍
+
+
+#### 在这里找到我
+E-Mail: youngwifemoliy@live.cn
+
+Weibo: @MoliySDev

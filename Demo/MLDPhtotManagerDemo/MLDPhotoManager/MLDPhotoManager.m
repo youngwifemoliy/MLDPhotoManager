@@ -29,7 +29,6 @@
     [objct showAlert:carryView];
 }
 
-
 #pragma mark - 懒加载
 
 - (NSMutableArray *)LGPhotoPickerBrowserPhotoArray
