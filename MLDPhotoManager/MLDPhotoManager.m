@@ -19,7 +19,7 @@
 
 @implementation MLDPhotoManager
 
-+ (void)showPhotoManager:(UIView *)sender
++ (void)showPhotoManager:(UIView *)carryView
          withCameraImage:(void(^)(UIImage *cameraImage))cameraImage
           withAlbumArray:(void(^)(NSArray *albumArray))albumArray
 {
