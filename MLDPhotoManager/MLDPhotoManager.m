@@ -15,18 +15,21 @@
 @property (nonatomic, strong)NSMutableArray *LGPhotoPickerBrowserURLArray;
 @property (nonatomic,copy)void(^CameraImage)(UIImage *cameraImage);
 @property (nonatomic,copy)void(^AlbumArray)(NSArray *albumArray);
+@property (nonatomic,assign) NSInteger maxCount;
 @end
 
 @implementation MLDPhotoManager
 
 + (void)showPhotoManager:(UIView *)carryView
+       withMaxImageCount:(NSInteger)maxCount
          withCameraImage:(void(^)(UIImage *cameraImage))cameraImage
           withAlbumArray:(void(^)(NSArray *albumArray))albumArray
 {
     MLDPhotoManager *objct = [[MLDPhotoManager alloc] init];
     objct.AlbumArray = albumArray;
     objct.CameraImage = cameraImage;
-    [objct showAlert:sender];
+    objct.maxCount = maxCount;
+    [objct showAlert:carryView];
 }
 
 
@@ -102,7 +105,7 @@
 {
     LGPhotoPickerViewController *pickerVc = [[LGPhotoPickerViewController alloc] initWithShowType:style];
     pickerVc.status = PickerViewShowStatusCameraRoll;
-    pickerVc.maxCount = 9;   // 最多能选9张图片
+    pickerVc.maxCount = self.maxCount;   // 最多能选9张图片
     pickerVc.callBack = ^(NSArray *assets)
     {
         NSMutableArray *thumbImageArray = [NSMutableArray array];

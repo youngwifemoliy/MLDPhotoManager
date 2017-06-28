@@ -20,6 +20,7 @@
  @param albumArray 输出相册中多选的照片数组(原图)
  */
 + (void)showPhotoManager:(UIView *)carryView
+       withMaxImageCount:(NSInteger)maxCount
          withCameraImage:(void(^)(UIImage *cameraImage))cameraImage
           withAlbumArray:(void(^)(NSArray *albumArray))albumArray;
 @end

@@ -1,5 +1,11 @@
 # MLDPhotoManager
 
+--
+20170628更新说明:更新了api增加了最大张数的参数
+
+
+
+--
 >基于@gang544043963大神的[LGPhotoBrowser](https://github.com/gang544043963/LGPhotoBrowser)项目再次封装的
 
 ![1](http://onazihscc.bkt.clouddn.com/WechatIMG125.png
@@ -15,6 +21,7 @@
 
 ```obj-c
 [MLDPhotoManager showPhotoManager:sender
+                withMaxImageCount:9
                   withCameraImage:^(UIImage *cameraImage)
  {
      NSLog(@"cameraImage==%@",cameraImage);
@@ -30,8 +37,9 @@
 
 ```obj-c
 + (void)showPhotoManager:(UIView *)carryView
+       withMaxImageCount:(NSInteger)maxCount
          withCameraImage:(void(^)(UIImage *cameraImage))cameraImage
-          withAlbumArray:(void(^)(NSArray *albumArray))albumArray;
+          withAlbumArray:(void(^)(NSArray *albumArray))albumArray
 ```
 其中`(UIView *)carryView`这个参数要说明一下.
 方法是直接呼出了`UIAlertController`但是在 *iPad* 中`UIAlertController`不能自下而上的直接弹出,需要一个停靠的`View`所以需要告诉控制器是哪个`View`响应了这个`UIAlertController`.

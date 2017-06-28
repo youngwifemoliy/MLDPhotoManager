@@ -23,6 +23,7 @@
 - (IBAction)photoManagerClick:(id)sender
 {
     [MLDPhotoManager showPhotoManager:sender
+                    withMaxImageCount:9
                       withCameraImage:^(UIImage *cameraImage)
     {
         NSLog(@"cameraImage==%@",cameraImage);
