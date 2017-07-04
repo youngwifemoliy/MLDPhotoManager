@@ -1,11 +1,11 @@
 # MLDPhotoManager
 
---
+---
 20170628更新说明:更新了api增加了最大张数的参数
 
 
 
---
+---
 >基于@gang544043963大神的[LGPhotoBrowser](https://github.com/gang544043963/LGPhotoBrowser)项目再次封装的
 
 ![1](http://onazihscc.bkt.clouddn.com/WechatIMG125.png
