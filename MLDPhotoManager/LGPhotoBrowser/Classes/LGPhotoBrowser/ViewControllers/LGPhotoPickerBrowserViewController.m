@@ -59,6 +59,15 @@ typedef NS_ENUM(NSInteger, DraggingDirect) {
     }
 }
 
+- (void)setNightMode:(BOOL)nightMode {
+	_nightMode = nightMode;
+	if (1 == nightMode) {
+		_collectionView.backgroundColor = NIGHTMODE_COLOR;
+	} else {
+		_collectionView.backgroundColor = DAYMODE_COLOR;
+	}
+}
+
 #pragma mark - getter
 #pragma mark photos
 
@@ -226,7 +235,7 @@ typedef NS_ENUM(NSInteger, DraggingDirect) {
         CGFloat height = 44;
         _XGtoolbar = [[LGPhotoPickerCustomToolBarView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - height, CGRectGetWidth(self.view.bounds), height) showType:self.showType];
         _XGtoolbar.delegate = self;
-        
+		_XGtoolbar.nightMode = self.nightMode;
         __weak LGPhotoPickerBrowserViewController * weakself = self;
         
         _XGtoolbar.getSizeBlock = ^(){
@@ -420,10 +429,13 @@ typedef NS_ENUM(NSInteger, DraggingDirect) {
         [self dismissViewControllerAnimated:YES completion:nil];
         return;
     }
+    
     static CGFloat alphaValue = 1;
     alphaValue = alphaValue? 0 : 1;
-    self.imagePickerSelectView.hidden = alphaValue;
-    self.XGtoolbar.hidden = alphaValue;
+    [UIView animateWithDuration:0.3 animations:^(void) {
+        [_imagePickerSelectView setAlpha:alphaValue];
+        [_XGtoolbar setAlpha:alphaValue];
+    } completion:nil];
 }
 
 - (void) pickerPhotoScrollViewDidLongPressed:(LGPhotoPickerBrowserPhotoScrollView *)photoScrollView{

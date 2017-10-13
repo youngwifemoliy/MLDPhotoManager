@@ -33,7 +33,7 @@
         _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame))];
         NSLog(@"%@",NSStringFromCGRect(_toolbar.frame));
         if ([_toolbar respondsToSelector:@selector(setBarTintColor:)]) {
-            _toolbar.barTintColor = nil;
+			_toolbar.barTintColor = self.nightMode? NIGHTMODE_COLOR : [UIColor clearColor];
         }
         if ([[UIToolbar class] respondsToSelector:@selector(appearance)]) {
             [_toolbar setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
@@ -90,7 +90,7 @@
     //发送按钮
     NSString *rightBtnName = @"发送";
     self.sendBtn = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ (%ld)",rightBtnName,(long)count] style:UIBarButtonItemStyleBordered target:self action:@selector(sendAction)];
-    self.sendBtn.tintColor = [UIColor colorWithRed:0.49 green:0.84 blue:0.25 alpha:1.00];
+    self.sendBtn.tintColor = [UIColor colorWithRed:0x45 green:0x9a blue:0x00 alpha:1];
     
     UIBarButtonItem *fiexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
@@ -144,6 +144,13 @@
     if ([self.delegate respondsToSelector:@selector(customToolBarIsOriginalBtnTouched)]) {
         [self.delegate customToolBarIsOriginalBtnTouched];
     }
+}
+
+#pragma mark setters
+
+- (void)setNightMode:(BOOL)nightMode {
+	_nightMode = nightMode;
+	_toolbar.barTintColor = self.nightMode? NIGHTMODE_COLOR : [UIColor clearColor];
 }
 
 @end

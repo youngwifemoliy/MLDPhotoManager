@@ -87,10 +87,8 @@ static NSString *const _identifier = @"toolBarThumbCollectionViewCell";
 - (UIButton *)sendBtn{
     if (!_sendBtn) {
         UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [rightBtn setTitleColor:[UIColor colorWithRed:0.49 green:0.84 blue:0.25 alpha:1.00]
-                       forState:UIControlStateNormal];
-        [rightBtn setTitleColor:[UIColor grayColor]
-                       forState:UIControlStateDisabled];
+        [rightBtn setTitleColor:[UIColor colorWithRed:0x45 green:0x9a blue:0x00 alpha:1] forState:UIControlStateNormal];
+        [rightBtn setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
         rightBtn.enabled = YES;
         rightBtn.titleLabel.font = [UIFont systemFontOfSize:17];
         rightBtn.frame = CGRectMake(0, 0, 60, 45);
@@ -124,15 +122,15 @@ static NSString *const _identifier = @"toolBarThumbCollectionViewCell";
 }
 
 /**
- 跳转照片浏览器
-
- @param preview YES - 从‘预览’按钮进去，浏览器显示的时被选中的照片
-                 NO - 点击cell进去，浏览器显示所有照片
- @param indexPath 进入浏览器后展示图片的位置
+ *  跳转照片浏览器
+ *
+ *  @param preview YES - 从‘预览’按钮进去，浏览器显示的时被选中的照片
+ *                  NO - 点击cell进去，浏览器显示所有照片
+ *  @param CurrentIndexPath 进入浏览器后展示图片的位置
  */
 - (void) setupPhotoBrowserInCasePreview:(BOOL)preview
-                       CurrentIndexPath:(NSIndexPath *)indexPath
-{
+                       CurrentIndexPath:(NSIndexPath *)indexPath{
+    
     self.isPreview = preview;
     // 图片游览器
     LGPhotoPickerBrowserViewController *pickerBrowser = [[LGPhotoPickerBrowserViewController alloc] init];
@@ -141,6 +139,7 @@ static NSString *const _identifier = @"toolBarThumbCollectionViewCell";
     pickerBrowser.delegate = self;
     pickerBrowser.dataSource = self;
     pickerBrowser.maxCount = self.maxCount;
+	pickerBrowser.nightMode = self.nightMode;
     pickerBrowser.isOriginal = self.isOriginal;
     pickerBrowser.selectedAssets = [self.selectAssets mutableCopy];
     // 数据源可以不传，传photos数组 photos<里面是ZLPhotoPickerBrowserPhoto>
@@ -154,16 +153,13 @@ static NSString *const _identifier = @"toolBarThumbCollectionViewCell";
     
 }
 
-- (void)setSelectPickerAssets:(NSArray *)selectPickerAssets
-{
+- (void)setSelectPickerAssets:(NSArray *)selectPickerAssets{
     NSSet *set = [NSSet setWithArray:selectPickerAssets];
     _selectPickerAssets = [set allObjects];
-    if (!self.assets)
-    {
+    
+    if (!self.assets) {
         self.assets = [NSMutableArray arrayWithArray:selectPickerAssets];
-    }
-    else
-    {
+    }else{
         [self.assets addObjectsFromArray:selectPickerAssets];
     }
     
@@ -180,16 +176,15 @@ static NSString *const _identifier = @"toolBarThumbCollectionViewCell";
     [self updateToolbar];
 }
 
-- (void)setTopShowPhotoPicker:(BOOL)topShowPhotoPicker
-{
+- (void)setTopShowPhotoPicker:(BOOL)topShowPhotoPicker{
     _topShowPhotoPicker = topShowPhotoPicker;
-    if (self.topShowPhotoPicker == YES)
-    {
+
+    if (self.topShowPhotoPicker == YES) {
         NSMutableArray *reSortArray= [[NSMutableArray alloc] init];
-        for (id obj in [self.collectionView.dataArray reverseObjectEnumerator])
-        {
+        for (id obj in [self.collectionView.dataArray reverseObjectEnumerator]) {
             [reSortArray addObject:obj];
         }
+        
         LGPhotoAssets *lgAsset = [[LGPhotoAssets alloc] init];
         [reSortArray insertObject:lgAsset atIndex:0];
         
@@ -252,7 +247,7 @@ static NSString *const _identifier = @"toolBarThumbCollectionViewCell";
     [super viewDidLoad];
     
     self.view.bounds = [UIScreen mainScreen].bounds;
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor clearColor];
     // 获取相册
     [self setupAssets];
     
@@ -264,6 +259,13 @@ static NSString *const _identifier = @"toolBarThumbCollectionViewCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.collectionView reloadData];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.collectionView.selectAssets = [NSMutableArray arrayWithArray:self.selectAssets];
+    self.collectionView.maxCount = self.maxCount;
 }
 
 #pragma mark - 创建右边取消按钮
@@ -284,7 +286,6 @@ static NSString *const _identifier = @"toolBarThumbCollectionViewCell";
     __weak typeof(self) weakSelf = self;
     
     dispatch_async(dispatch_get_main_queue(), ^{
-
         [[LGPhotoPickerDatas defaultPicker] getGroupPhotosWithGroup:self.assetsGroup finished:^(NSArray *assets) {
             
             [assets enumerateObjectsUsingBlock:^(ALAsset *asset, NSUInteger idx, BOOL *stop) {
@@ -296,20 +297,6 @@ static NSString *const _identifier = @"toolBarThumbCollectionViewCell";
             [self.assets setArray:assetsM];
         }];
     });
-}
-
-- (void)pickerCollectionViewDidCameraSelect:(LGPhotoPickerCollectionView *)pickerCollectionView{
-    
-    
-    UIImagePickerController *ctrl = [[UIImagePickerController alloc] init];
-    ctrl.delegate = self;
-    ctrl.sourceType = UIImagePickerControllerSourceTypeCamera;
-    [self presentViewController:ctrl animated:YES completion:nil];
-    
-    
-//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//        [[NSNotificationCenter defaultCenter] postNotificationName:PICKER_TAKE_PHOTO object:nil];
-//    });
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
@@ -358,14 +345,14 @@ static NSString *const _identifier = @"toolBarThumbCollectionViewCell";
 }
 
 #pragma mark - setter
--(void)setMaxCount:(NSInteger)maxCount{
+- (void)setMaxCount:(NSInteger)maxCount {
     _maxCount = maxCount;
     
     if (!_privateTempMaxCount) {
         _privateTempMaxCount = maxCount;
     }
 
-    if (self.selectAssets.count == maxCount){
+    if (self.selectAssets.count == maxCount) {
         maxCount = 0;
     }else if (self.selectPickerAssets.count - self.selectAssets.count > 0) {
         maxCount = _privateTempMaxCount;
@@ -374,7 +361,16 @@ static NSString *const _identifier = @"toolBarThumbCollectionViewCell";
     self.collectionView.maxCount = maxCount;
 }
 
-- (void)setAssetsGroup:(LGPhotoPickerGroup *)assetsGroup{
+- (void)setNightMode:(BOOL)nightMode {
+	_nightMode = nightMode;
+	if (nightMode == 1) {
+		self.view.backgroundColor = NIGHTMODE_COLOR;
+	} else {
+		self.view.backgroundColor = DAYMODE_COLOR;
+	}
+}
+
+- (void)setAssetsGroup:(LGPhotoPickerGroup *)assetsGroup {
     if (!assetsGroup.groupName.length) return ;
     
     _assetsGroup = assetsGroup;
